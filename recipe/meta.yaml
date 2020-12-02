@@ -6,7 +6,6 @@ package:
   version: {{ version }}
 
 source:
-  folder: src
   url: https://github.com/{{ name }}/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: a7ccc76c2f1b5f4e8d855eb328ed542f8fe3b882a6da868781799a98f4acdedc
 
@@ -14,9 +13,7 @@ build:
   number: 0
   skip: true  # [win]
   run_exports:
-    # Symbols are removed from a minor release to the next.
-    # https://abi-laboratory.pro/index.php?view=timeline&l=rocksdb
-    - {{ pin_subpackage(name, max_pin='x.x.x') }}
+    - {{ pin_subpackage(name, max_pin='x.x') }}
 
 requirements:
   build:
@@ -24,6 +21,7 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake >=3.5.1,<4
     - ninja >=1.10,<2
+    - patch
     - pkgconfig
   host:
     - openssl
@@ -31,14 +29,18 @@ requirements:
 test:
   commands:
     - civetweb
-    - test -f ${PREFIX}/lib/libcivetweb.so
+    - test -f ${PREFIX}/include/{{ name }}.h
+    - test -f ${PREFIX}/include/CivertServer.h
+    - test -d ${PREFIX}/lib/cmake/{{ name }}
+    - test -f ${PREFIX}/lib/lib{{ name }}.so
+    - test -f ${PREFIX}/lib/lib{{ name }}-cpp.so
 
 about:
   home: https://github.com/civetweb/civetweb
-  license: Apache-2.0
-  license_family: Apache
+  license: MIT
+  license_family: MIT
   license_file: LICENSE.md
-  summary: 'An easy to use C/C++ embeddable web server'
+  summary: 'An easy to use C/C++ embeddable web server.'
   dev_url: https://github.com/civetweb/civetweb
 
 extra:
