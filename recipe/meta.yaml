@@ -1,0 +1,46 @@
+{% set name = "civetweb" %}
+{% set version = "1.13" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  folder: src
+  url: https://github.com/{{ name }}/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: a7ccc76c2f1b5f4e8d855eb328ed542f8fe3b882a6da868781799a98f4acdedc
+
+build:
+  number: 0
+  skip: true  # [win]
+  run_exports:
+    # Symbols are removed from a minor release to the next.
+    # https://abi-laboratory.pro/index.php?view=timeline&l=rocksdb
+    - {{ pin_subpackage(name, max_pin='x.x.x') }}
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake >=3.5.1,<4
+    - ninja >=1.10,<2
+    - pkgconfig
+  host:
+    - openssl
+
+test:
+  commands:
+    - civetweb
+    - test -f ${PREFIX}/lib/libcivetweb.so
+
+about:
+  home: https://github.com/civetweb/civetweb
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE.md
+  summary: 'An easy to use C/C++ embeddable web server'
+  dev_url: https://github.com/civetweb/civetweb
+
+extra:
+  recipe-maintainers:
+    - sodre
