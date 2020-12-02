@@ -3,11 +3,11 @@ About civetweb
 
 Home: https://github.com/civetweb/civetweb
 
-Package license: Apache-2.0
+Package license: MIT
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/civetweb-feedstock/blob/master/LICENSE.txt)
 
-Summary: An easy to use C/C++ embeddable web server
+Summary: An easy to use C/C++ embeddable web server.
 
 Development: https://github.com/civetweb/civetweb
 
