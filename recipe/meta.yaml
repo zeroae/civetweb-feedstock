@@ -10,7 +10,7 @@ source:
   sha256: a7ccc76c2f1b5f4e8d855eb328ed542f8fe3b882a6da868781799a98f4acdedc
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
@@ -28,9 +28,8 @@ requirements:
 
 test:
   commands:
-    - civetweb
+    - test -x ${PREFIX}/bin/civetweb
     - test -f ${PREFIX}/include/{{ name }}.h
-    - test -f ${PREFIX}/include/CivertServer.h
     - test -d ${PREFIX}/lib/cmake/{{ name }}
     - test -f ${PREFIX}/lib/lib{{ name }}.so
     - test -f ${PREFIX}/lib/lib{{ name }}-cpp.so
