@@ -5,6 +5,8 @@ set -eu
 cmake -S . \
       -B output \
       ${CMAKE_ARGS} \
+      -DCMAKE_C_FLAGS="$CFLAGS $CPPFLAGS" \
+      -DCMAKE_CXX_FLAGS="$CXXFLAGS $CPPFLAGS" \
       -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}\
       -DCMAKE_INSTALL_PREFIX=${PREFIX} \
       -DCMAKE_INSTALL_LIBDIR=lib \
